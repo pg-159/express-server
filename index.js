@@ -76,6 +76,16 @@ app.get("/shipping-cost", (req, res) => {
 
   res.send(calculateShippingCost(weight, distance).toString());
 })
+// function to calculate loyalty points
+function calculateLoyaltyPoints(purchaseAmount) {
+  return purchaseAmount * loyaltyRate;
+}
+// endpoint 6: Create an endpoint that takes purchaseAmount as query parameters and returns the loyalty points.
+app.get("/loyalty-points", (req, res) => {
+  let purchaseAmount = parseFloat(req.query.purchaseAmount);
+
+  res.send(calculateLoyaltyPoints(purchaseAmount).toString())
+})
 app.listen(port, () => {
   console.log("Server is running on http://localhost: ", port);
 })
