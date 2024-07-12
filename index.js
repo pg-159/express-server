@@ -50,6 +50,7 @@ app.get("/calculate-tax", (req, res) => {
   res.send(calculateTax(cartTotal).toString());
 })
 
+// function to calculate delivery time in days
 function calculateDeliveryTime(shippingMethod, distance) {
   if (shippingMethod === "standard"){
     return distance / 50;
@@ -64,8 +65,17 @@ app.get("/estimate-delivery", (req, res) => {
 
   res.send(calculateDeliveryTime(shippingMethod, distance).toString());
 })
+// function to calculate shipping cost
+function calculateShippingCost(weight, distance){
+  return weight * distance * 0.1;
+}
+// endpoint 5: Calculate the shipping cost based on weight and distance
+app.get("/shipping-cost", (req, res) => {
+  let weight = parseFloat(req.query.weight);
+  let distance = parseFloat(req.query.distance);
 
-
+  res.send(calculateShippingCost(weight, distance).toString());
+})
 app.listen(port, () => {
   console.log("Server is running on http://localhost: ", port);
 })
