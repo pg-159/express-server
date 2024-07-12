@@ -19,7 +19,7 @@ app.get("/cart-total", (req, res) => {
   let newItemPrice = parseFloat(req.query.newItemPrice);
   let cartTotal = parseFloat(req.query.cartTotal);
   
-  res.send(cartTotal(newItemPrice,cartTotal).toString());
+  res.send(calculateCartTotal(newItemPrice,cartTotal).toString());
 })
 
 // function to calculate discounted amount
