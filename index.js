@@ -49,6 +49,23 @@ app.get("/calculate-tax", (req, res) => {
 
   res.send(calculateTax(cartTotal).toString());
 })
+
+function calculateDeliveryTime(shippingMethod, distance) {
+  if (shippingMethod === "standard"){
+    return distance / 50;
+  } else {
+    return distance / 100;
+  }
+}
+// endpoint 4: calculate estimate delivery time
+app.get("/estimate-delivery", (req, res) => {
+  let shippingMethod = req.query.shippingMethod;
+  let distance = parseFloat(req.query.distance);
+
+  res.send(calculateDeliveryTime(shippingMethod, distance).toString());
+})
+
+
 app.listen(port, () => {
   console.log("Server is running on http://localhost: ", port);
 })
