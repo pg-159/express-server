@@ -63,4 +63,20 @@ app.get("/total-return-percentage", (req, res) => {
   res.send(calculateTotalReturnPercentage(stock1, stock2, stock3, stock4).toString())
   
 })
+
+// function to get status of stock based on their return value
+function stockStatus(returnPercentage){
+  if (returnPercentage > 0){
+    return "profit"
+  } else {
+    return "loss"
+  }
+}
+// Endpoint 5: Identify the Status of Stocks based on their Return Value
+app.get("/status", (req, res) => {
+  let returnPercentage = parseFloat(req.query.returnPercentage);
+
+  res.send(stockStatus(returnPercentage).toString())
+})
+
 app.listen(PORT, () => console.log("Server is listening on port", PORT));
