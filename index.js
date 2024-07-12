@@ -1,91 +1,66 @@
 let express = require('express');
 let cors = require('cors');
-let port = 3000;
-let app = express();
+
+const app = express();
+const PORT = 3000;
+
 app.use(cors());
 
-//Server-side values
-let taxRate = 5; // 5%
-let discountPercentage = 10; // 10%
-let loyaltyRate = 2; // 2 points per $1
+app.get("/", (req, res) => {
+  res.send("Welcome to stock portfolio analysis API!");
+})
 
-// function to calculate cart total
-function calculateCartTotal (newItemPrice, cartTotal){
-  cartTotal = cartTotal + newItemPrice;
-  return cartTotal;
+// function to calculate returns made
+function calculateReturns(boughtAt, marketPrice, quantity){
+  return ( marketPrice - boughtAt ) * quantity;
 }
 
-app.get("/cart-total", (req, res) => {
-  let newItemPrice = parseFloat(req.query.newItemPrice);
-  let cartTotal = parseFloat(req.query.cartTotal);
+// Endpoint 1: Calculate the Returns of the Stocks added
+app.get("/calculate-returns", (req, res) => {
+  let boughtAt = parseFloat(req.query.boughtAt)
+  let marketPrice = parseFloat(req.query.marketPrice)
+  let quantity = parseFloat(req.query.quantity)
+
+  res.send(calculateReturns(boughtAt, marketPrice, quantity).toString())
+})
+
+// function to calculate total returns
+function calculateTotalReturns(stock1, stock2, stock3, stock4) {
+  return stock1 + stock2 + stock3 + stock4;
+}
+// Endpoint 2: Calculate the Total Returns
+app.get("/total-returns", (req, res) => {
+  let stock1 = parseFloat(req.query.stock1);
+  let stock2 = parseFloat(req.query.stock2);
+  let stock3 = parseFloat(req.query.stock3);
+  let stock4 = parseFloat(req.query.stock4);
+
+  res.send(calculateTotalReturns(stock1, stock2, stock3, stock4).toString());
+})
+
+// function to calculate return percentage
+function calculateReturnPercentage(boughtAt, returns) {
+  return (returns / boughtAt) * 100;
+}
+// Endpoint 3: Calculate the Return Percentage
+app.get("/calculate-return-percentage", (req, res) => {
+  let boughtAt = parseFloat(req.query.boughtAt);
+  let returns = parseFloat(req.query.returns);
   
-  res.send(cartTotal.toString());
-})
+  res.send(calculateReturnPercentage(boughtAt, returns).toString());
+}) 
 
-// function to calculate discounted amount
-function applyDiscount(cartTotal, isMember){
-  if (isMember === "true"){
-    cartTotal = cartTotal - (cartTotal * (discountPercentage / 100));
-    return cartTotal;
-  } else {
-    return cartTotal;
-  }
+function calculateTotalReturnPercentage(stock1, stock2, stock3, stock4) {
+  return stock1 + stock2 + stock3 + stock4;
 }
-// endpoint 2: apply discount based on membership status
-app.get("/membership-discount", (req, res) => {
-  let cartTotal = parseFloat(req.query.cartTotal);
-  let isMember = req.query.isMember;
+// Endpoint 4: Calculate the Total Return Percentage
+app.get("/total-return-percentage", (req, res) => {
+  let stock1 = parseFloat(req.query.stock1);
+  let stock2 = parseFloat(req.query.stock2);
+  let stock3 = parseFloat(req.query.stock3);
+  let stock4 = parseFloat(req.query.stock4);
 
-  res.send(applyDiscount(cartTotal, isMember).toString())
+  res.send(calculateTotalReturnPercentage(stock1, stock2, stock3, stock4).toString())
+  
 })
-// function to apply tax on cart value amount
-function calculateTax(cartTotal){
-  let taxAmount = cartTotal * (taxRate / 100);
-  return taxAmount;
-}
-// endpoint 3: apply tax on the cart value
-app.get("/calculate-tax", (req, res) => {
-  let cartTotal = parseFloat(req.query.cartTotal);
-
-  res.send(calculateTax(cartTotal).toString());
-})
-
-// function to calculate delivery time in days
-function calculateDeliveryTime(shippingMethod, distance) {
-  if (shippingMethod === "standard"){
-    return distance / 50;
-  } else {
-    return distance / 100;
-  }
-}
-// endpoint 4: calculate estimate delivery time
-app.get("/estimate-delivery", (req, res) => {
-  let shippingMethod = req.query.shippingMethod;
-  let distance = parseFloat(req.query.distance);
-
-  res.send(calculateDeliveryTime(shippingMethod, distance).toString());
-})
-// function to calculate shipping cost
-function calculateShippingCost(weight, distance){
-  return weight * distance * 0.1;
-}
-// endpoint 5: Calculate the shipping cost based on weight and distance
-app.get("/shipping-cost", (req, res) => {
-  let weight = parseFloat(req.query.weight);
-  let distance = parseFloat(req.query.distance);
-
-  res.send(calculateShippingCost(weight, distance).toString());
-})
-// function to calculate loyalty points
-function calculateLoyaltyPoints(purchaseAmount) {
-  return purchaseAmount * loyaltyRate;
-}
-// endpoint 6: Create an endpoint that takes purchaseAmount as query parameters and returns the loyalty points.
-app.get("/loyalty-points", (req, res) => {
-  let purchaseAmount = parseFloat(req.query.purchaseAmount);
-
-  res.send(calculateLoyaltyPoints(purchaseAmount).toString())
-})
-app.listen(port, () => {
-  console.log("Server is running on http://localhost: ", port);
-})
+app.listen(PORT, () => console.log("Server is listening on port", PORT));
