@@ -1,8 +1,10 @@
 let express = require("express");
 let app = express();
 let port = 3000;
+
 let cors = require("cors");
 app.use(cors());
+
 let products = [
   {
     id: 1,
@@ -238,7 +240,7 @@ app.get("/products/sort/popularity", (req, res) => {
 
 // function to sort products by price in descending order
 function sortProductsByPriceHighToLow(product1, product2) {
-  return prodcut2.price - product1.price;
+  return product2.price - product1.price;
 }
 // endpoint 2: sort product by price in descending order
 app.get("/products/sort/price-high-to-low", (req, res) => {
