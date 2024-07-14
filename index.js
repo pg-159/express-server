@@ -264,56 +264,56 @@ function filterByRam(product, ram) {
 // endpoint 4: filter product by RAM size
 app.get("/products/filter/ram", (req, res) => {
   let ram = parseFloat(req.query.ram);
-  let result = products.filter(product => filterByRam(product, ram))
+  let result = products.filter((product) => filterByRam(product, ram));
   res.json(result);
 });
 
 // function to filter product by ROM size
-function filterByRom(product, rom){
+function filterByRom(product, rom) {
   return product.rom === rom;
 }
 // endpoint 5: filter product by ROM size
 app.get("/products/filter/rom", (req, res) => {
   let rom = parseFloat(req.query.rom);
-  let result = products.filter(product => filterByRom(product, rom))
+  let result = products.filter((product) => filterByRom(product, rom));
   res.json(result);
 });
 // function to filter product by brand
-function filterByBrand(product, brand){
-  return product.brand.toLowerCase() === brand.toLowerCase()
+function filterByBrand(product, brand) {
+  return product.brand.toLowerCase() === brand.toLowerCase();
 }
 // endpoint 6: filter product by brand name
 app.get("/products/filter/brand", (req, res) => {
   let brand = req.query.brand;
-  let result = products.filter(product => filterByBrand(product, brand))
+  let result = products.filter((product) => filterByBrand(product, brand));
   res.json(result);
 });
 
 //function to filter products by OS
-function filterByOS(product, os){
+function filterByOS(product, os) {
   return product.os.toLowerCase() === os.toLowerCase();
 }
 // endpoint 7: filter product by OS type
 app.get("/products/filter/os", (req, res) => {
   let os = req.query.os;
-  let result = products.filter(product => filterByOS(product, os))
+  let result = products.filter((product) => filterByOS(product, os));
   res.json(result);
 });
 // function to filter products by price
-function filterByPrice(product, price){
+function filterByPrice(product, price) {
   return product.price <= price;
 }
 // endpoint 8: filter product by price options
 app.get("/products/filter/price", (req, res) => {
   let price = parseFloat(req.query.price);
-  let result = products.filter(product => filterByPrice(product, price));
+  let result = products.filter((product) => filterByPrice(product, price));
   res.json(result);
 });
 // endpoint 9: load products list
 app.get("/products", (req, res) => {
   res.json(products);
 });
+
 app.listen(port, () =>
   console.log(`Server is running on http://localhost: ${port}`),
 );
-app.use(cors());
