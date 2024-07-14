@@ -235,7 +235,7 @@ function sortProductsByRatingHightToLow(product1, product2) {
 app.get("/products/sort/popularity", (req, res) => {
   let sortedProducts = products.slice();
   sortedProducts.sort(sortProductsByRatingHightToLow);
-  res.json(sortedProducts);
+  res.json({products:sortedProducts});
 });
 
 // function to sort products by price in descending order
@@ -246,7 +246,7 @@ function sortProductsByPriceHighToLow(product1, product2) {
 app.get("/products/sort/price-high-to-low", (req, res) => {
   let sortedProducts = products.slice();
   sortedProducts.sort(sortProductsByPriceHighToLow);
-  res.json(sortedProducts);
+  res.json({products:sortedProducts});
 });
 
 // function to sort products by price in ascending order
@@ -257,7 +257,7 @@ function sortProductsByPriceLowToHigh(product1, product2) {
 app.get("/products/sort/price-low-to-high", (req, res) => {
   let sortedProducts = products.slice();
   sortedProducts.sort(sortProductsByPriceLowToHigh);
-  res.json(sortedProducts);
+  res.json({products:sortedProducts});
 });
 
 // function to filter products by RAM size
@@ -268,7 +268,7 @@ function filterByRam(product, ram) {
 app.get("/products/filter/ram", (req, res) => {
   let ram = parseFloat(req.query.ram);
   let result = products.filter((product) => filterByRam(product, ram));
-  res.json(result);
+  res.json({products:result});
 });
 
 // function to filter product by ROM size
@@ -279,7 +279,7 @@ function filterByRom(product, rom) {
 app.get("/products/filter/rom", (req, res) => {
   let rom = parseFloat(req.query.rom);
   let result = products.filter((product) => filterByRom(product, rom));
-  res.json(result);
+  res.json({products:result});
 });
 // function to filter product by brand
 function filterByBrand(product, brand) {
@@ -289,7 +289,7 @@ function filterByBrand(product, brand) {
 app.get("/products/filter/brand", (req, res) => {
   let brand = req.query.brand;
   let result = products.filter((product) => filterByBrand(product, brand));
-  res.json(result);
+  res.json({products:result});
 });
 
 //function to filter products by OS
@@ -300,7 +300,7 @@ function filterByOS(product, os) {
 app.get("/products/filter/os", (req, res) => {
   let os = req.query.os;
   let result = products.filter((product) => filterByOS(product, os));
-  res.json(result);
+  res.json({products:result});
 });
 // function to filter products by price
 function filterByPrice(product, price) {
@@ -310,7 +310,7 @@ function filterByPrice(product, price) {
 app.get("/products/filter/price", (req, res) => {
   let price = parseFloat(req.query.price);
   let result = products.filter((product) => filterByPrice(product, price));
-  res.json(result);
+  res.json({products:result});
 });
 // endpoint 9: load products list
 app.get("/products", (req, res) => {
