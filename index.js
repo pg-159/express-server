@@ -314,7 +314,7 @@ app.get("/products/filter/price", (req, res) => {
 });
 // endpoint 9: load products list
 app.get("/products", (req, res) => {
-  res.json(products);
+  res.json({products: products});
 });
 app.listen(port, () =>
   console.log(`Server is running on http://localhost: ${port}`),
