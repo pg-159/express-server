@@ -2,6 +2,7 @@ let express = require("express");
 let app = express();
 let port = 3000;
 let cors = require("cors");
+app.use(cors());
 let products = [
   {
     id: 1,
@@ -313,7 +314,6 @@ app.get("/products/filter/price", (req, res) => {
 app.get("/products", (req, res) => {
   res.json(products);
 });
-
 app.listen(port, () =>
   console.log(`Server is running on http://localhost: ${port}`),
 );
