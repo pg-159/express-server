@@ -221,6 +221,12 @@ app.get("/stocks/filter/industry", (req, res) => {
   let result = stocks.filter(stock => filterByIndustry(stock, industry))
   res.json({stocks: result});
 });
+
+// endpoint 5: add all stocks
+app.get("/stocks", (req, res) => {
+  let result = (stocks)
+  res.json({stocks: result});
+});
 app.listen(port, () =>
   console.log(`Server is running on http://localhost: ${port}`),
 );
