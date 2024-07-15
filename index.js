@@ -170,7 +170,7 @@ let stocks = [
 
 // function to sort stocks by pricing
 function sortStockByPricing(stock1, stock2, pricing) {
-  if (pricing === "lowToHigh") {
+  if (pricing === "low-to-high") {
     return stock1.price - stock2.price;
   } else {
     return stock2.price - stock1.price;
@@ -178,7 +178,7 @@ function sortStockByPricing(stock1, stock2, pricing) {
 }
 // endpoint 1: stocks sorted by pricing
 app.get("/stocks/sort/pricing", (req, res) => {
-  let pricing = req.query.pricing || "hightToLow"; // default highToLow if not specified
+  let pricing = req.query.pricing || "high-to-low"; // default highToLow if not specified
   let stocksCopy = stocks.slice();
   stocksCopy.sort((a, b) => sortStockByPricing(a, b, pricing));
   res.json({stocks: stocksCopy});
