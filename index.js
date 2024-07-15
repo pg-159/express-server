@@ -1,235 +1,297 @@
-let express = require("express");
+let express = require('express');
 let app = express();
 let port = 3000;
 
 let cors = require("cors");
 app.use(cors());
 
-let stocks = [
+let hotels = [
   {
     id: 1,
-    name: "reliance industries",
-    price: 2500,
-    growth: 3.5,
-    industry: "finance",
-    exchange: "nse",
+    name: "Romantic Getaway",
+    category: "Resort",
+    rating: 2.2,
+    reviews: 4572,
+    amenity: "Spa",
+    price: 10464,
+    country: "South Africa",
   },
   {
     id: 2,
-    name: "hdfc bank",
-    price: 1800,
-    growth: 4.2,
-    industry: "finance",
-    exchange: "bse",
+    name: "Wellness Retreat",
+    category: "Family",
+    rating: 2.8,
+    reviews: 2114,
+    amenity: "Pool",
+    price: 13243,
+    country: "Australia",
   },
   {
     id: 3,
-    name: "icici bank",
-    price: 1600,
-    growth: 5.1,
-    industry: "finance",
-    exchange: "nse",
+    name: "Romantic Getaway",
+    category: "Luxury",
+    rating: 3.1,
+    reviews: 4359,
+    amenity: "Restaurant",
+    price: 3299,
+    country: "Germany",
   },
   {
     id: 4,
-    name: "tata consultancy services",
-    price: 3200,
-    growth: 2.9,
-    industry: "finance",
-    exchange: "bse",
+    name: "Luxury Suites",
+    category: "Family",
+    rating: 4.9,
+    reviews: 3651,
+    amenity: "Bar",
+    price: 16359,
+    country: "United Kingdom",
   },
   {
     id: 5,
-    name: "infosys",
-    price: 2900,
-    growth: 3.8,
-    industry: "finance",
-    exchange: "nse",
+    name: "Luxury Suites",
+    category: "Budget",
+    rating: 4.6,
+    reviews: 688,
+    amenity: "Gym",
+    price: 15570,
+    country: "France",
   },
   {
     id: 6,
-    name: "dr. reddy's laboratories",
-    price: 2100,
-    growth: 4.7,
-    industry: "pharma",
-    exchange: "bse",
+    name: "Cultural Heritage Hotel",
+    category: "Boutique",
+    rating: 2.0,
+    reviews: 219,
+    amenity: "Pet Friendly",
+    price: 2321,
+    country: "USA",
   },
   {
     id: 7,
-    name: "sun pharmaceutical",
-    price: 2300,
-    growth: 3.2,
-    industry: "pharma",
-    exchange: "nse",
+    name: "Business Hotel",
+    category: "Mid-Range",
+    rating: 3.7,
+    reviews: 1040,
+    amenity: "Free WiFi",
+    price: 4523,
+    country: "India",
   },
   {
     id: 8,
-    name: "cipla",
-    growth: 2.6,
-    price: 2100,
-    exchange: "bse",
-    industry: "pharma",
+    name: "Historic Plaza Hotel",
+    category: "Mid-Range",
+    rating: 3.5,
+    reviews: 300,
+    amenity: "Parking",
+    price: 8543,
+    country: "Australia",
   },
   {
     id: 9,
-    name: "ntpc",
-    price: 1200,
-    growth: 4.1,
-    industry: "power",
-    exchange: "nse",
+    name: "Adventure Resort",
+    category: "Boutique",
+    rating: 4.2,
+    reviews: 1222,
+    amenity: "Gym",
+    price: 11894,
+    country: "South Africa",
   },
   {
     id: 10,
-    name: "power grid corporation",
-    price: 1500,
-    growth: 3.4,
-    industry: "power",
-    exchange: "bse",
+    name: "Mountain Retreat",
+    category: "Resort",
+    rating: 4.8,
+    reviews: 4015,
+    amenity: "Spa",
+    price: 17560,
+    country: "India",
   },
   {
     id: 11,
-    name: "adani power",
-    price: 2200,
-    growth: 5.3,
-    industry: "power",
-    exchange: "nse",
+    name: "Eco Friendly Lodge",
+    category: "Family",
+    rating: 2.4,
+    reviews: 528,
+    amenity: "Restaurant",
+    price: 3124,
+    country: "Germany",
   },
   {
     id: 12,
-    name: "lupin",
-    price: 2000,
-    growth: 4.5,
-    industry: "pharma",
-    exchange: "bse",
+    name: "Urban Boutique Hotel",
+    category: "Mid-Range",
+    rating: 3.9,
+    reviews: 1401,
+    amenity: "Free WiFi",
+    price: 9245,
+    country: "France",
   },
   {
     id: 13,
-    name: "axis bank",
-    price: 1750,
-    growth: 2.8,
-    industry: "finance",
-    exchange: "nse",
+    name: "Beachfront Hotel",
+    category: "Luxury",
+    rating: 4.5,
+    reviews: 489,
+    amenity: "Pool",
+    price: 14567,
+    country: "USA",
   },
   {
     id: 14,
-    name: "state bank of india",
-    price: 1450,
-    growth: 3.6,
-    industry: "finance",
-    exchange: "bse",
+    name: "Ocean View Resort",
+    category: "Budget",
+    rating: 3.3,
+    reviews: 783,
+    amenity: "Spa",
+    price: 7432,
+    country: "United Kingdom",
   },
   {
     id: 15,
-    name: "bajaj finance",
-    price: 2650,
-    growth: -2.9,
-    industry: "finance",
-    exchange: "nse",
+    name: "City Central Hotel",
+    category: "Boutique",
+    rating: 4.1,
+    reviews: 2133,
+    amenity: "Bar",
+    price: 9823,
+    country: "Australia",
   },
   {
     id: 16,
-    name: "dr. reddy's laboratories",
-    price: 1950,
-    growth: 4.3,
-    industry: "pharma",
-    exchange: "bse",
+    name: "Casino Resort",
+    category: "Luxury",
+    rating: 4.9,
+    reviews: 5000,
+    amenity: "Bar",
+    price: 18900,
+    country: "South Africa",
   },
   {
     id: 17,
-    name: "biocon",
-    price: 1850,
-    growth: 3.9,
-    industry: "pharma",
-    exchange: "nse",
+    name: "Golf Resort",
+    category: "Mid-Range",
+    rating: 4.7,
+    reviews: 789,
+    amenity: "Gym",
+    price: 16340,
+    country: "France",
   },
   {
     id: 18,
-    name: "torrent power",
-    price: 1600,
-    growth: 2.4,
-    industry: "power",
-    exchange: "bse",
+    name: "Family Fun Hotel",
+    category: "Family",
+    rating: 3.2,
+    reviews: 1322,
+    amenity: "Pool",
+    price: 7500,
+    country: "Germany",
   },
   {
     id: 19,
-    name: "tata power",
-    price: 1750,
-    growth: 4.0,
-    industry: "power",
-    exchange: "nse",
+    name: "Spa and Relaxation Hotel",
+    category: "Luxury",
+    rating: 4.4,
+    reviews: 2314,
+    amenity: "Spa",
+    price: 14900,
+    country: "United Kingdom",
   },
   {
     id: 20,
-    name: "jsw energy",
-    price: 1450,
-    growth: 3.1,
-    industry: "power",
-    exchange: "bse",
+    name: "Country House Hotel",
+    category: "Budget",
+    rating: 3.6,
+    reviews: 1876,
+    amenity: "Parking",
+    price: 6234,
+    country: "Australia",
   },
 ];
 
-// function to sort stocks by pricing
-function sortStockByPricing(stock1, stock2, pricing) {
-  if (pricing === "low-to-high") {
-    return stock1.price - stock2.price;
+// function to sort hotels by pricing
+function sortHotelsByPricing(hotel1, hotel2, pricing){
+  if (pricing === 'low-to-high'){
+    return hotel1.price - hotel2.price;
   } else {
-    return stock2.price - stock1.price;
+    return hotel2.price - hotel1.price;
   }
 }
-// endpoint 1: stocks sorted by pricing
-app.get("/stocks/sort/pricing", (req, res) => {
-  let pricing = req.query.pricing || "high-to-low"; // default highToLow if not specified
-  let stocksCopy = stocks.slice();
-  stocksCopy.sort((a, b) => sortStockByPricing(a, b, pricing));
-  res.json({stocks: stocksCopy});
+// endpoint1: sort hotels by pricing
+app.get("/hotels/sort/pricing", (req, res) => {
+  let pricing = req.query.pricing || 'low-to-high'
+  let hotelsCopy = hotels.slice();
+  hotelsCopy.sort((a, b) => sortHotelsByPricing(a, b, pricing))
+  res.json({hotels: hotelsCopy});
 });
 
-// function to sort stocks by growth
-function sortStocksByGrowth(stock1, stock2, growth){
-  if (growth === "low-to-high") {
-    return stock1.growth - stock2.growth
+// function to sort hotels by rating
+function sortHotelsByRating(hotel1, hotel2, rating){
+  if (rating === 'low-to-high'){
+    return hotel1.rating - hotel2.rating;
   } else {
-    return stock2.growth - stock1.growth
+    return hotel2.rating - hotel1.rating;
   }
 }
-// endpoint 2: stocks sorted by growth
-app.get("/stocks/sort/growth", (req, res) => {
-  let growth = req.query.growth;
-  let stocksCopy = stocks.slice();
-  stocksCopy.sort((a, b) => sortStocksByGrowth(a, b, growth))
-  res.json({stocks: stocksCopy});
+// endpoint 2: sort hotels by rating
+app.get("/hotels/sort/rating", (req, res) => {
+  let rating = req.query.rating || 'low-to-high';
+  let hotelsCopy = hotels.slice();
+  hotelsCopy.sort((a, b) => sortHotelsByRating(a, b, rating))
+  res.json({hotels: hotelsCopy});
 });
 
-// function to filter stocks based on 2 stock exchange
-function filterByExchange(stock, exchange){
-  return stock.exchange.toLowerCase() === exchange.toLowerCase();
+// function to sort hotels by ratings
+function sortHotelsByReviews(hotel1, hotel2, reviews){
+  if (reviews === 'least-to-most'){
+    return hotel1.reviews - hotel2.reviews;
+  } else {
+    return hotel2.reviews - hotel1.reviews;
+  }
 }
-// endpoint 3: stock filter by stock exchange
-app.get("/stocks/filter/exchange", (req, res) => {
-  let exchange = req.query.exchange;
-  let result = stocks.filter(stock => filterByExchange(stock, exchange))
-  res.json({stocks: result});
+// endpoint 3: sort hotel by ratings
+app.get("/hotels/sort/reviews", (req, res) => {
+  let reviews = req.query.reviews || 'least-to-most';
+  let hotelsCopy = hotels.slice();
+  hotelsCopy.sort((a, b) => sortHotelsByReviews(a, b, reviews))
+  res.json({hotesl: hotelsCopy});
 });
 
-// function to filter stocks based on industrial sector
-function filterByIndustry(stock, industry){
-  return stock.industry === industry.toLowerCase()
+// function to filter hotels by amenity
+function filterByAmenity(hotel, amenity){
+  return hotel.amenity.toLowerCase() === amenity.toLowerCase()
 }
-// endpoint 4: stock filter by industrial sector
-app.get("/stocks/filter/industry", (req, res) => {
-  let industry = req.query.industry || 'finance';
-  let result = stocks.filter(stock => filterByIndustry(stock, industry))
-  res.json({stocks: result});
+// endpoint 4: filter hotels based on amenity
+app.get("/hotels/filter/amenity", (req, res) => {
+  let amenity = req.query.amenity || 'spa';
+  let result = hotels.filter(hotel => filterByAmenity(hotel, amenity))
+  res.json({hotels: result});
 });
 
-// function to add send all stocks
-function sendAllStocks(){
-  return ({stocks})
+// function to filter hotels by country
+function filterByCountry(hotel, country){
+  return hotel.country.toLowerCase() === country.toLowerCase();
 }
-// endpoint 5: add all stocks
-app.get("/stocks", (req, res) => {
-  res.json({stocks: stocks})
+// endpoint 5: filter hotels by country
+app.get("/hotels/filter/country", (req, res) => {
+  let country = req.query.country;
+  let result = hotels.filter(hotel => filterByCountry(hotel, country))
+  res.json({hotels: result});
 });
-app.listen(port, () =>
-  console.log(`Server is running on http://localhost: ${port}`),
-);
+
+// function to filter hotel by category
+function filterByCategory(hotel, category){
+  return hotel.category.toLowerCase() === category.toLowerCase();
+}
+// endpoint 6: filter hotel by category
+app.get("/hotels/filter/category", (req, res) => {
+  let category = req.query.category;
+  let result = hotels.filter(hotel => filterByCategory(hotel, category))
+  res.json({hotels: result});
+});
+
+// load all hotels
+app.get("/hotels", (req, res) => {
+  res.json({hotels: hotels});
+});
+
+app.listen(port, () => console.log(`Server is running on http://localhost: ${port}`));
