@@ -253,7 +253,7 @@ app.get("/hotels/sort/reviews", (req, res) => {
   let reviews = req.query.reviews || 'least-to-most';
   let hotelsCopy = hotels.slice();
   hotelsCopy.sort((a, b) => sortHotelsByReviews(a, b, reviews))
-  res.json({hotesl: hotelsCopy});
+  res.json({hotels: hotelsCopy});
 });
 
 // function to filter hotels by amenity
