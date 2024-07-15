@@ -187,9 +187,9 @@ app.get("/stocks/sort/pricing", (req, res) => {
 // function to sort stocks by growth
 function sortStocksByGrowth(stock1, stock2, growth){
   if (growth === "low-to-high") {
-    return stock1.price - stock2.price;
+    return stock1.growth - stock2.growth;
   } else {
-    return stock2.price - stock1.price;
+    return stock2.growth - stock1.growth
   }
 }
 // endpoint 2: stocks sorted by growth
