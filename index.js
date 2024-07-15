@@ -187,14 +187,14 @@ app.get("/stocks/sort/pricing", (req, res) => {
 // function to sort stocks by growth
 function sortStocksByGrowth(stock1, stock2, growth){
   if (growth === "low-to-high") {
-    return stock1.growth - stock2.growth;
+    return stock1.growth.toFixed(1) - stock2.growth.toFixed(1);
   } else {
-    return stock2.growth - stock1.growth
+    return stock2.growth.toFixed(1) - stock1.growth.toFixed(1);
   }
 }
 // endpoint 2: stocks sorted by growth
 app.get("/stocks/sort/growth", (req, res) => {
-  let growth = req.query.growth || "high-to-low";
+  let growth = req.query.growth;
   let stocksCopy = stocks.slice();
   stocksCopy.sort((a, b) => sortStocksByGrowth(a, b, growth))
   res.json({stocks: stocksCopy});
@@ -202,12 +202,23 @@ app.get("/stocks/sort/growth", (req, res) => {
 
 // function to filter stocks based on 2 stock exchange
 function filterByExchange(stock, exchange){
-  return stock.exchange === exchange.toLowerCase()
+  return stock.exchange.toLowerCase() === exchange.toLowerCase();
 }
 // endpoint 3: stock filter by stock exchange
 app.get("/stocks/filter/exchange", (req, res) => {
-  let exchange = req.query.exchange || 'nse'
+  let exchange = req.query.exchange;
   let result = stocks.filter(stock => filterByExchange(stock, exchange))
+  res.json({stocks: result});
+});
+
+// function to filter stocks based on industrial sector
+function filterByIndustry(stock, industry){
+  return stock.industry === industry.toLowerCase()
+}
+// endpoint 4: stock filter by industrial sector
+app.get("/stocks/filter/industry", (req, res) => {
+  let sector = req.query.sector;
+  let result = sector.filter(sector => filterByIndustry(stock, industry))
   res.json({stocks: result});
 });
 app.listen(port, () =>
