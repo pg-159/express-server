@@ -217,7 +217,7 @@ function filterByIndustry(stock, industry){
 }
 // endpoint 4: stock filter by industrial sector
 app.get("/stocks/filter/industry", (req, res) => {
-  let sector = req.query.sector;
+  let industry = req.query.industry || 'finance';
   let result = sector.filter(sector => filterByIndustry(stock, industry))
   res.json({stocks: result});
 });
