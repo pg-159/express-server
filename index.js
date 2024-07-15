@@ -222,10 +222,13 @@ app.get("/stocks/filter/industry", (req, res) => {
   res.json({stocks: result});
 });
 
+// function to add send all stocks
+function sendAllStocks(){
+  return ({stocks})
+}
 // endpoint 5: add all stocks
 app.get("/stocks", (req, res) => {
-  let result = (stocks)
-  res.json({stocks: result});
+  res.json({stocks: stocks})
 });
 app.listen(port, () =>
   console.log(`Server is running on http://localhost: ${port}`),
