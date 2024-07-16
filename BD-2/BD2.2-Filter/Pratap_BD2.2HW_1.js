@@ -49,7 +49,7 @@ let indianNames = ["Akshay", "Priyanka", "Arjun", "Anushka", "Rajesh", "Kavita"]
 
 // function to filter names longer than 6 characters
 function filterLongIndianNames(ele){
-  return ele.length;
+  return ele.length > 6;
 }
 
 // endpoint 4: given an array of Indian names, return only the names longer than 6 characters
