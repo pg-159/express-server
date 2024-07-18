@@ -14,7 +14,7 @@ let db;
 })();
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "BD4.1 HW2 Template" });
+  res.status(200).json({ message: "BD4.2 HW2 Template" });
 });
 
 //Endpoint 1: Retrieve All Tracks

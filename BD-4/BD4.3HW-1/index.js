@@ -8,13 +8,13 @@ let db;
 
 (async () => {
   db = await open({
-    filename: "./BD4.2HW-1/books_database.sqlite",
+    filename: "./BD4.3HW-1/database.sqlite",
     driver: sqlite3.Database,
   });
 })();
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "BD4.2 HW1 Template" });
+  res.status(200).json({ message: "BD4.3 HW1 Template" });
 });
 
 // Endpoint 1: Fetch All Books
@@ -42,11 +42,11 @@ app.get("/books/author/:author", async (req, res) => {
   try {
     let author = req.params.author;
     let results = await fetchBooksByAuthor(author)
-    
+
     if (results.books.length === 0){
       return res.status(404).json({message: "No books found."});
     }
-    
+
     res.status(200).json(results);
   } catch (error) {
     return res.status(500).json({error: error.message});

@@ -13,7 +13,7 @@ let db;
 })();
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "BD4.2 CW - SQL Queries & async/await" });
+  res.status(200).json({ message: "BD4.3 CW - SQL Queries & async/await" });
 });
 
 // Endpoint 1: fetch all movies.
@@ -36,66 +36,46 @@ const fetchAllMovies = async () => {
 
   return {movies: response}
 }
-// endpoint 2: fetch movies by genre
-app.get("/movies/genre/:genre", async (req, res) => {
+// endpoint 2: Fetch All Movies by Actor
+app.get("/movies/actor/:actor", async (req, res) => {
+  let actor = req.params.actor;
   try {
-    let genre = req.params.genre;
-    let results = await fetchMoviesByGenre(genre);
+    const results = await filterByActor(actor);
     if (results.movies.length === 0){
-      return res.status(404).json({message: "No movies of this genre found."});
+      return res.status(404).json({message: "No movies found for actor: "+actor});
     }
     res.status(200).json(results);
   } catch (error) {
     return res.status(500).json({error: error.message});
   }
 })
-// function to fetch movies by genre
-const fetchMoviesByGenre = async (genre) => {
-  let query = 'SELECT * FROM movies WHERE genre = ?'
-  let response = await db.all(query, [genre])
+// function to Fetch All Movies by Actor
+const filterByActor = async (actor) => {
+  let query = 'SELECT * FROM movies WHERE actor = ?'
+  let response = await db.all(query, [actor])
   return {movies: response};
 }
 
-// endpoint 3: fetch movies by id
-app.get("/movies/details/:id", async (req, res) => {
+// endpoint 3: filter movies by director name
+app.get("/movies/director/:director", async (req, res) => {
+  let director = req.params.director;
   try {
-    let id = req.params.id;
-    let results = await fetchMoviesById(id);
-    if (results.movies === undefined ){
-      return res.status(404).json({message: "No movies found."});
+    let results = await filterByDirector(director);
+    if (results.movies.length === 0){
+      return res.status(404).json({message: "No movies found for given director: "+director});
     }
     res.status(200).json(results);
   } catch (error) {
     return res.status(500).json({error: error.message});
   }
 });
-// function to fetch movies by id
-const fetchMoviesById = async (id) => {
-  let query = 'SELECT * FROM movies WHERE id = ?';
-  let response = await db.get(query, [id]);
+// function to filter movies by director name
+const filterByDirector = async (director) => {
+  let query = 'SELECT * FROM movies WHERE director = ?';
+  let response = await db.all(query, [director]);
   return {movies: response};
 }
 
-// endpoint 4: fetch movies by release year
-app.get("/movies/release-year/:year", async (req, res) => {
-  try {
-    let releaseYear = req.params.year;
-    let results = await fetchMoviesByReleaseYear(releaseYear)
-    if (results.movies.length === 0) {
-      return res.status(404).json({message: "No movies found."});
-    }
-    res.status(200).json(results);
-  } catch (error) {
-    return res.status(500).json({error: error.message});
-  }
-});
-
-//function to fetch movies by release year
-const fetchMoviesByReleaseYear = async (releaseYear) => {
-  let query = 'SELECT * FROM movies WHERE release_year = ?';
-  let response = await db.all(query, [releaseYear]);
-  return {movies: response};
-}
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
