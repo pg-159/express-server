@@ -14,7 +14,7 @@ let db;
 })();
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "BD4.3 HW2 Template" });
+  res.status(200).json({ message: "BD4.3 HW2 Handling Errors..." });
 });
 
 //Endpoint 1: Fetch All Recipes by Cuisine

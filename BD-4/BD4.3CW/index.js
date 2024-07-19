@@ -13,7 +13,7 @@ let db;
 })();
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "BD4.3 CW - SQL Queries & async/await" });
+  res.status(200).json({ message: "BD4.3 CW - Handling Errors..." });
 });
 
 // Endpoint 1: fetch all movies.
