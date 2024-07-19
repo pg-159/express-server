@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 // Endpoint 1: fetch all movies.
 app.get("/movies", async(req, res) => {
   try {
-    let results = await fetchAllMovies();
+    const results = await fetchAllMovies();
     if (results.movies.length === 0){
       return res.status(404).json({message: "No movies found."});
     }
@@ -60,7 +60,7 @@ const filterByActor = async (actor) => {
 app.get("/movies/director/:director", async (req, res) => {
   let director = req.params.director;
   try {
-    let results = await filterByDirector(director);
+    const results = await filterByDirector(director);
     if (results.movies.length === 0){
       return res.status(404).json({message: "No movies found for given director: "+director});
     }

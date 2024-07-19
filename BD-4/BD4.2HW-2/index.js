@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 app.get("/tracks", async (req, res) => {
   try {  
     let results = await fetchAllTracks();
-    if (results.tracks.lenght === 0){
+    if (results.tracks.length === 0){
       return res.status(404).json({message: "No tracks found."});
     }
     res.status(200).json(results);
