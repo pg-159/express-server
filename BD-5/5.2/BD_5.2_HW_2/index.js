@@ -3,36 +3,27 @@ let app = express();
 let { sequelize } = require("./lib/index");
 let { employee } = require("./models/employee.model");
 
-let employeeData = [
+let employeesData = [
   {
-    name: "Alice Smith",
+    id: 1,
+    name: "Alice",
+    salary: 60000,
     department: "Engineering",
-    salary: 90000,
     designation: "Software Engineer",
   },
   {
-    name: "Bob Johnson",
-    department: "Management",
-    salary: 120000,
-    designation: "Project Manager",
-  },
-  {
-    name: "Charlie Brown",
-    department: "Design",
+    id: 2,
+    name: "Bob",
     salary: 70000,
-    designation: "Designer",
+    department: "Marketing",
+    designation: "Marketing Manager",
   },
   {
-    name: "David Wilson",
-    department: "Engineering",
+    id: 3,
+    name: "Charlie",
     salary: 80000,
-    designation: "QA Engineer",
-  },
-  {
-    name: "Eve Davis",
-    department: "HR",
-    salary: 60000,
-    designation: "HR Specialist",
+    department: "Engineering",
+    designation: "Senior Software Engineer",
   },
 ];
 
@@ -40,7 +31,7 @@ app.get("/seed_db", async (req, res) => {
   try {
     await sequelize.sync({ force: true });
 
-    await employee.bulkCreate(employeeData);
+    await employee.bulkCreate(employeesData);
 
     return res.status(200).json({ message: "database seeding successful" });
   } catch (error) {
@@ -49,6 +40,74 @@ app.get("/seed_db", async (req, res) => {
       .json({ message: "Error seeding the data", error: error.message });
   }
 });
+
+//Exercise 1: Fetch all employees
+async function fetchAllEmployees() {
+  let employees = await employee.findAll();
+  return { employees };
+}
+app.get("/employees", async (req, res) => {
+  try {
+    let response = await fetchAllEmployees();
+    if (response.employees.length === 0) {
+      return res.status(404).json({ message: "No Employees Found." });
+    }
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+//Exercise 2: Fetch employee details by ID
+async function fetchEmployeeById(id) {
+  let employeeData = await employee.findOne({ where: { id } });
+  return { employeeData };
+}
+app.get("/employees/details/:id", async (req, res) => {
+  try {
+    let id = parseInt(req.params.id);
+    let result = await fetchEmployeeById(id);
+    if (result.employeeData === null) {
+      return res.status(404).json({ message: "No Employee Found." });
+    }
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+async function fetchEmployeesByDepartment(department) {
+  let employees = await employee.findAll({ where: { department } });
+  return { employees: employees };
+}
+app.get('/employees/department/:department', async (req, res) => {
+  try {
+    console.log("hello employees");
+    let department = req.params.department;
+    let result = await fetchEmployeesByDepartment(department);
+    if (result.employees.length === 0) {
+      return res.status(404).json({ message: "No Employees Found."     });
+    }
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+async function sortEmployeesBySalary(sortOrder){
+  let sortedEmployees = await employee.findAll({order: [['salary', sortOrder]]});
+  return {employees: sortedEmployees};
+}
+app.get('/employees/sort/salary', async (req, res) => {
+  try {
+    let sortOrder = req.query.order;
+    let result = await sortEmployeesBySalary(sortOrder)
+    if (result.employees.length === 0) {
+      return res.status(404).json({ message: "No Employees Found."     });
+    }
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+})
 app.listen(3000, () => {
   console.log("Server is running on port: 3000");
 });
