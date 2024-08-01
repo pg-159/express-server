@@ -132,6 +132,7 @@ app.post('/posts/update/:id', async (req, res) => {
   }
 })
 
+// Exercise 4: Delete a post from the database
 async function deletePostById(id){
   let destroyedPost = await post.destroy({where: {id}});
   if (destroyedPost === 0) return {};
