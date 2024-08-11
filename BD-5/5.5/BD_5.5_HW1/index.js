@@ -93,7 +93,7 @@ async function dislikeBook(data) {
     },
   });
   if (count === 0) return {};
-  return { message: "book deleted!" };
+  return { message: "book disliked!" };
 }
 app.get("/users/:id/dislike", async (req, res) => {
   try {
