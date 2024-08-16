@@ -2,10 +2,11 @@ const express = require('express');
 const {error} = require('console');
 const sqlite3 = require('sqlite3').verbose();
 const {open} = require('sqlite');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 let db;
+let cors = require("cors");
+app.use(cors());
 
 (async () => {
     db = await open({
@@ -41,7 +42,7 @@ app.get("/restaurants/details/:id", async (req, res) => {
   const id = req.params.id;
   try {
       const results = await fetchRestaurantById(id);
-      if (results.restaurants.length === 0) {
+      if (results.restaurant === null) {
           return res.status(404).json({ message: "Restaurant not found" });
       }
       return res.status(200).json(results);
@@ -52,8 +53,8 @@ app.get("/restaurants/details/:id", async (req, res) => {
 
 const fetchRestaurantById = async (id) => {
   const query = 'SELECT * FROM restaurants WHERE id = ?';
-  const response = await db.all(query, [id]);
-  return { restaurants: response };
+  const response = await db.get(query, [id]);
+  return { restaurant: response };
 };
 
 // Endpoint 3: Get Restaurants by Cuisine
@@ -141,7 +142,7 @@ app.get("/dishes/details/:id", async (req, res) => {
   const id = req.params.id;
   try {
       const results = await fetchDishById(id);
-      if (results.dishes.length === 0) {
+      if (results.dish === null) {
           return res.status(404).json({ message: "Dish not found" });
       }
       return res.status(200).json(results);
@@ -152,8 +153,8 @@ app.get("/dishes/details/:id", async (req, res) => {
 
 const fetchDishById = async (id) => {
   const query = 'SELECT * FROM dishes WHERE id = ?';
-  const response = await db.all(query, [id]);
-  return { dishes: response };
+  const response = await db.get(query, [id]);
+  return { dish: response };
 };
 
 // Endpoint 8: Get Dishes by Veg/Non-Veg

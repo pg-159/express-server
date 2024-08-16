@@ -7,6 +7,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 let db;
 
+let cors = require("cors");
+app.use(cors());
+
 (async () => {
     db = await open({
       filename: "./BD4-A2/database.sqlite",
