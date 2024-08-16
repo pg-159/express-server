@@ -12,7 +12,7 @@ let server;
 
 beforeAll((done) => {
   server = http.createServer(app);
-  server.listen(3001, done);
+  server.listen(3008, done);
 });
 
 afterAll((done) => {
