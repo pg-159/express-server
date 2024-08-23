@@ -1,4 +1,4 @@
-const express = require("express");
+express = require("express");
 const app = express();
 app.use(express.json());
 
@@ -36,9 +36,9 @@ app.get("/authors/details/:id", (req, res) => {
 });
 
 app.post("/authors/new", (req, res) => {
-  let authorId = req.query.authorId;
-  let name = req.query.name;
-  let book = req.query.book;
+  let authorId = req.body.authorId;
+  let name = req.body.name;
+  let book = req.body.book;
   let addedAuthor = addAuthor({ authorId, name, book });
   res.status(201).json(addedAuthor);
 });

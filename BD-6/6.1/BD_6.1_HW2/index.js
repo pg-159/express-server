@@ -1,4 +1,4 @@
-let {getEmployees, getEmployeesById, addEmployee } = require('../employee');
+let {getEmployees, getEmployeeById, addEmployee } = require('./employee');
 const express = require('express')
 const app = express();
 const PORT = 3000;
@@ -9,7 +9,7 @@ app.get('/api/employees', (req, res) => {
   res.json(getEmployees())
 });
 
-app.get('/api/movies/:id', (req, res) => {
+app.get('/api/employees/:id', (req, res) => {
   const employee = getEmployeeById(parseInt(req.params.id));
   if (!employee) return res.status(404).send('Employee not found.');
   res.json(employee);
