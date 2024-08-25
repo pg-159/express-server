@@ -47,4 +47,4 @@ app.post("/api/tournaments", (req, res) => {
   res.status(201).json(tournament);
 });
 
-module.exports = { app };
+module.exports = { app, validateGame, validateTournament };

@@ -56,3 +56,49 @@ describe("API Endpoints to add data", () => {
     expect(res.text).toEqual("Name is required and should be a string.");
   });
 });
+
+describe("Validation Functions", () => {
+  it("should return null if game input is valid", async () => {
+    expect(
+      validateGame({
+        title: "The Legend of Zelda",
+        genre: "Adventure",
+      }),
+    ).toBeNull();
+  });
+
+  it("should return an error message if game input is invalid", async () => {
+    expect(
+      validateGame({
+        title: "The Legend of Zelda",
+      }),
+    ).toEqual("Genre is required and should be a string.");
+    expect(
+      validateGame({
+        genre: "Adventure",
+      }),
+    ).toEqual("Title is required and should be a string.");
+  });
+
+  it("should return null if tournament input is valid", async () => {
+    expect(
+      validateTournament({
+        name: "Zelda Championship",
+        gameId: 1,
+      }),
+    ).toBeNull();
+  });
+
+  it("should return an error message if tournament input is invalid", async () => {
+    expect(
+      validateTournament({
+        name: "Zelda Championship",
+      }),
+    ).toEqual("Game ID is required and should be a number.");
+    expect(
+      validateTournament({
+        gameId: 1,
+      }),
+    ).toEqual("Name is required and should be a string.");
+  });
+});
