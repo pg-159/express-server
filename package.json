@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest -- 6.6_HW1"
+    "test": "jest -- BD_6.6_HW2"
   },
   "keywords": [],
   "author": "",

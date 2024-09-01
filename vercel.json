@@ -1,5 +1,5 @@
 {
   "version": 2,
-  "builds": [ { "src": "BD-6/6.6-CICD-Deployment/BD_6.6_HW1/server.js", "use": "@vercel/node"} ],
-  "rewrites": [ {"source": "/(.*)", "destination": "BD-6/6.6-CICD-Deployment/BD_6.6_HW1/server.js"} ]
+  "builds": [ { "src": "BD-6/6.6-CICD-Deployment/BD_6.6_HW2/server.js", "use": "@vercel/node"} ],
+  "rewrites": [ {"source": "/(.*)", "destination": "BD-6/6.6-CICD-Deployment/BD_6.6_HW2/server.js"} ]
 }

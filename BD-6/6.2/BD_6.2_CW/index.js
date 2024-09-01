@@ -36,9 +36,9 @@ app.get("/authors/details/:id", (req, res) => {
 });
 
 app.post("/authors/new", (req, res) => {
-  let authorId = req.body.authorId;
-  let name = req.body.name;
-  let book = req.body.book;
+  let authorId = req.query.authorId;
+  let name = req.query.name;
+  let book = req.query.book;
   let addedAuthor = addAuthor({ authorId, name, book });
   res.status(201).json(addedAuthor);
 });
